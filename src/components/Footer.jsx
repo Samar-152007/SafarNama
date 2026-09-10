@@ -56,11 +56,11 @@ export default function Footer() {
           <div className="footer-links-col">
             <h4 className="footer-col-title">Platform Navigation</h4>
             <ul className="footer-links-list">
-              <li><Link to="/">Home Overview</Link></li>
-              <li><Link to="/dashboard">Intelligence Dashboard</Link></li>
-              <li><Link to="/route-ai">AI Route Intelligence</Link></li>
-              <li><Link to="/report">Report Disruption</Link></li>
-              <li><Link to="/team">Engineering Team</Link></li>
+              <li><Link to="/">Home</Link></li>
+              <li><Link to="/dashboard">Dashboard</Link></li>
+              <li><Link to="/route-ai">Route Intelligence</Link></li>
+              <li><Link to="/report">Incident Reporting</Link></li>
+              <li><Link to="/team">Team</Link></li>
             </ul>
           </div>
         </div>
@@ -68,7 +68,7 @@ export default function Footer() {
         {/* Bottom Bar */}
         <div className="footer-bottom-bar">
           <p className="copyright-text">
-            © {new Date().getFullYear()} <strong>SafarNama</strong> — Smart India Hackathon (SIH) Intelligent Logistics Prototype.
+            © {new Date().getFullYear()} <strong>SafarNama</strong> — AI-powered logistics intelligence for India's North Eastern Region.
           </p>
           <div className="bottom-meta">
             <span className="api-badge">Powered by OpenStreetMap & Open-Meteo API</span>
