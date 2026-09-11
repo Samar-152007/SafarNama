@@ -35,7 +35,7 @@ export const teamMembers = [
     name: 'Shivanjali Desai',
     role: 'Full Stack Developer',
     initials: 'SD',
-    image: null,
+    image: '/images/team/Shivanjali.png',
     github: 'https://github.com/shivanjali-desai',
     linkedin: 'https://linkedin.com/in/shivanjali-desai'
   },
