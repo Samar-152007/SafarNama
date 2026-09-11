@@ -27,8 +27,7 @@ export default function Navbar() {
           {/* Brand Logo */}
           <Link to="/" className="brand" onClick={() => setMobileMenuOpen(false)}>
             <div className="brand-icon">
-              <Mountain className="icon-mountain" size={20} />
-              <div className="icon-pulse"></div>
+              <img src="/images/SafarNama.png" alt="SafarNama Logo" className="brand-logo-img" />
             </div>
             <div className="brand-text-block">
               <span className="brand-title font-serif">SafarNama</span>
@@ -143,31 +142,32 @@ export default function Navbar() {
         }
 
         .brand-icon {
-          width: 38px;
-          height: 38px;
-          border-radius: 10px;
-          background: var(--color-teal);
-          color: var(--color-ivory);
+          width: 44px;
+          height: 44px;
+          border-radius: 12px;
+          background: #FFFFFF;
           display: flex;
           align-items: center;
           justify-content: center;
           position: relative;
-          box-shadow: 0 4px 12px rgba(15, 76, 76, 0.25);
+          box-shadow: 0 4px 12px rgba(15, 76, 76, 0.12);
+          border: 1px solid var(--color-border);
+          padding: 4px;
+          overflow: hidden;
+          transition: transform 0.2s ease, box-shadow 0.2s ease;
         }
 
-        .icon-mountain {
-          stroke-width: 2.2;
+        .brand:hover .brand-icon {
+          transform: translateY(-1px);
+          box-shadow: 0 6px 16px rgba(15, 76, 76, 0.18);
+          border-color: var(--color-teal);
         }
 
-        .icon-pulse {
-          position: absolute;
-          top: -2px;
-          right: -2px;
-          width: 8px;
-          height: 8px;
-          border-radius: 50%;
-          background: var(--color-gold);
-          border: 2px solid var(--color-ivory);
+        .brand-logo-img {
+          width: 100%;
+          height: 100%;
+          object-fit: contain;
+          display: block;
         }
 
         .brand-text-block {

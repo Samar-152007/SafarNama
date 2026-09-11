@@ -284,6 +284,7 @@ export default function RouteAnalysis({
 
             <div className="leaflet-route-map-frame">
               <MapContainer
+                key={`${from}-${to}`}
                 bounds={allCoords}
                 scrollWheelZoom={false}
                 zoomControl={true}

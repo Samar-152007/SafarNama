@@ -1,7 +1,15 @@
 /**
  * SafarNama Core Engineering Team
- * Note: Profile URLs and initials are prototype placeholders.
- * Photo/image fields are intentionally empty per design specifications.
+ * 
+ * HOW TO ADD A PHOTO:
+ * 1. Place your image file in `public/images/team/` (e.g., `public/images/team/samarjeet.jpg`)
+ *    and set `image: '/images/team/samarjeet.jpg'`
+ *    OR use any hosted web URL: `image: 'https://example.com/photo.jpg'`
+ * 2. If `image` is null or fails to load, it automatically falls back to initials with a gold seal!
+ * 
+ * HOW TO ADD LINKEDIN ID:
+ * Set `linkedin` to either your full profile URL or your LinkedIn username/handle:
+ * e.g. 'https://linkedin.com/in/samarjeet-suryavanshi' OR 'samarjeet-suryavanshi'
  */
 export const teamMembers = [
   {
@@ -15,12 +23,12 @@ export const teamMembers = [
   },
   {
     id: 't2',
-    name: 'Kaustubh Kumbhar',
+    name: 'Koustubh Kumbhar',
     role: 'GIS & Data Engineer',
     initials: 'KK',
-    image: null,
+    image: '/images/team/Koustubh.jpeg',
     github: 'https://github.com/kaustubh-kumbhar',
-    linkedin: 'https://linkedin.com/in/kaustubh-kumbhar'
+    linkedin: 'https://www.linkedin.com/in/koustubh-kumbhar-9452a937b/'
   },
   {
     id: 't3',

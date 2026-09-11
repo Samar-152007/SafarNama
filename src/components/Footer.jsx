@@ -22,7 +22,7 @@ export default function Footer() {
           <div className="footer-brand-col">
             <div className="footer-brand">
               <div className="brand-icon-sm">
-                <Mountain size={18} />
+                <img src="/images/SafarNama.png" alt="SafarNama Logo" className="footer-logo-img" />
               </div>
               <span className="brand-name font-serif">SafarNama</span>
             </div>
@@ -122,14 +122,24 @@ export default function Footer() {
         }
 
         .brand-icon-sm {
-          width: 32px;
-          height: 32px;
-          border-radius: 8px;
-          background: var(--color-teal);
-          color: var(--color-white);
+          width: 38px;
+          height: 38px;
+          border-radius: 10px;
+          background: #FFFFFF;
+          border: 1px solid var(--color-border);
+          box-shadow: 0 2px 8px rgba(15, 76, 76, 0.1);
           display: flex;
           align-items: center;
           justify-content: center;
+          padding: 3px;
+          overflow: hidden;
+        }
+
+        .footer-logo-img {
+          width: 100%;
+          height: 100%;
+          object-fit: contain;
+          display: block;
         }
 
         .brand-name {

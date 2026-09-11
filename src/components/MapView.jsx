@@ -46,6 +46,17 @@ export default function MapView({ incidents = [], selectedIncidentId, onSelectIn
     }
   };
 
+  // Fly to selected incident when changed from outside (e.g. feed click)
+  React.useEffect(() => {
+    if (selectedIncidentId) {
+      const found = incidents.find((i) => i.id === selectedIncidentId);
+      if (found) {
+        setMapCenter([found.lat, found.lng]);
+        setMapZoom(9.5);
+      }
+    }
+  }, [selectedIncidentId, incidents]);
+
   // Filtered incidents
   const filteredIncidents = incidents.filter((inc) => {
     const matchesState = selectedState === 'All' || inc.state === selectedState;

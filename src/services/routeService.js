@@ -13,17 +13,51 @@ export const AI_ANALYSIS_STEPS = [
 ];
 
 export async function calculateRouteAnalysis(fromName, toName) {
-  // Normalize key
-  const key = `${fromName.toLowerCase()}-${toName.toLowerCase()}`;
-  const route = demoRoutesData[key] || demoRoutesData['guwahati-tawang'];
+  // Normalize keys
+  const directKey = `${fromName.toLowerCase()}-${toName.toLowerCase()}`;
+  const reverseKey = `${toName.toLowerCase()}-${fromName.toLowerCase()}`;
+
+  let baseRoute = demoRoutesData[directKey];
+  let isReversed = false;
+
+  if (!baseRoute && demoRoutesData[reverseKey]) {
+    baseRoute = demoRoutesData[reverseKey];
+    isReversed = true;
+  }
+
+  if (!baseRoute) {
+    baseRoute = demoRoutesData['guwahati-tawang'];
+  }
 
   // Simulate network / AI processing delay for realism
   await new Promise((resolve) => setTimeout(resolve, 800));
 
+  if (isReversed) {
+    return {
+      success: true,
+      query: { from: fromName, to: toName },
+      ...baseRoute,
+      from: fromName,
+      to: toName,
+      originCoord: baseRoute.destCoord,
+      destCoord: baseRoute.originCoord,
+      primaryRoute: {
+        ...baseRoute.primaryRoute,
+        coordinates: [...baseRoute.primaryRoute.coordinates].reverse()
+      },
+      recommendedRoute: {
+        ...baseRoute.recommendedRoute,
+        coordinates: [...baseRoute.recommendedRoute.coordinates].reverse()
+      }
+    };
+  }
+
   return {
     success: true,
     query: { from: fromName, to: toName },
-    ...route
+    ...baseRoute,
+    from: fromName,
+    to: toName
   };
 }
 

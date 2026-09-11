@@ -54,7 +54,7 @@ export default function Hero() {
             transition={{ duration: 0.6 }}
             className="hero-pill"
           >
-            <span className="pill-dot"></span>
+            <img src="/images/SafarNama.png" alt="SafarNama Logo" className="hero-pill-logo" />
             <span className="pill-text">Predict. Navigate. Deliver.</span>
           </motion.div>
 
@@ -209,11 +209,11 @@ export default function Hero() {
           margin-bottom: 1.5rem;
         }
 
-        .pill-dot {
-          width: 7px;
-          height: 7px;
-          border-radius: 50%;
-          background: var(--color-gold);
+        .hero-pill-logo {
+          width: 20px;
+          height: 20px;
+          object-fit: contain;
+          border-radius: 4px;
         }
 
         .pill-text {
