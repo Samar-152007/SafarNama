@@ -63,7 +63,7 @@ export default function TeamCard({ member, index = 0 }) {
   const githubUrl = getGithubUrl(member.github);
   const formatImageSrc = (img) => {
     if (!img) return null;
-    const normalized = img.replace(/\\/g, '/').trim();
+    const normalized = img.replace(/\t/g, '/t').replace(/\\/g, '/').trim();
     if (normalized.startsWith('http://') || normalized.startsWith('https://') || normalized.startsWith('/')) {
       return normalized;
     }

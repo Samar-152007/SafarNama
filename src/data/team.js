@@ -9,7 +9,7 @@
  * 
  * HOW TO ADD LINKEDIN ID:
  * Set `linkedin` to either your full profile URL or your LinkedIn username/handle:
- * e.g. 'https://linkedin.com/in/samarjeet-suryavanshi' OR 'samarjeet-suryavanshi'
+ * e.g. 'https://linkedin.com/in/samarjeet-suryawanshi' OR 'samarjeet-suryawanshi'
  */
 export const teamMembers = [
   {
@@ -17,9 +17,9 @@ export const teamMembers = [
     name: 'Samarjeet Suryavanshi',
     role: 'Full Stack Developer',
     initials: 'SS',
-    image: null,
-    github: 'https://github.com/samarjeet-suryavanshi',
-    linkedin: 'https://linkedin.com/in/samarjeet-suryavanshi'
+    image: '/images/team/Samarjeet.png',
+    github: 'https://github.com/Samar-152007',
+    linkedin: 'https://www.linkedin.com/in/samarjeet-suryawanshi-97b737430/'
   },
   {
     id: 't2',
@@ -27,7 +27,7 @@ export const teamMembers = [
     role: 'GIS & Data Engineer',
     initials: 'KK',
     image: '/images/team/Koustubh.jpeg',
-    github: 'https://github.com/kaustubh-kumbhar',
+    github: 'https://github.com/Koustubhk01',
     linkedin: 'https://www.linkedin.com/in/koustubh-kumbhar-9452a937b/'
   },
   {
@@ -44,7 +44,7 @@ export const teamMembers = [
     name: 'Pragati Mane',
     role: 'UI/UX Designer',
     initials: 'PM',
-    image: null,
+    image: '/images/team/Pragati.jpeg',
     github: 'https://github.com/pragati-mane',
     linkedin: 'https://linkedin.com/in/pragati-mane'
   },
@@ -59,11 +59,11 @@ export const teamMembers = [
   },
   {
     id: 't6',
-    name: 'Anuj Yemple',
+    name: 'Anuj Yelpale',
     role: 'Researcher',
     initials: 'AY',
     image: null,
-    github: 'https://github.com/anuj-yemple',
-    linkedin: 'https://linkedin.com/in/anuj-yemple'
+    github: 'https://github.com/anuj-yelpale',
+    linkedin: 'https://linkedin.com/in/anuj-yelpale'
   }
 ];
