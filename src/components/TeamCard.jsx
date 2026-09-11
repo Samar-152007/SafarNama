@@ -61,7 +61,16 @@ export default function TeamCard({ member, index = 0 }) {
   const linkedInUrl = getLinkedInUrl(member.linkedin);
   const linkedInHandle = getLinkedInHandle(member.linkedin);
   const githubUrl = getGithubUrl(member.github);
-  const imageSrc = member.image ? member.image.replace(/\\/g, '/') : null;
+  const formatImageSrc = (img) => {
+    if (!img) return null;
+    const normalized = img.replace(/\\/g, '/').trim();
+    if (normalized.startsWith('http://') || normalized.startsWith('https://') || normalized.startsWith('/')) {
+      return normalized;
+    }
+    return `/${normalized}`;
+  };
+
+  const imageSrc = formatImageSrc(member.image);
   const hasPhoto = Boolean(imageSrc && !imageError);
 
   return (

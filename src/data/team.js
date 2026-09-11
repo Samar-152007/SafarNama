@@ -59,11 +59,11 @@ export const teamMembers = [
   },
   {
     id: 't6',
-    name: 'Anuj Temple',
+    name: 'Anuj Yemple',
     role: 'Researcher',
-    initials: 'AT',
+    initials: 'AY',
     image: null,
-    github: 'https://github.com/anuj-temple',
-    linkedin: 'https://linkedin.com/in/anuj-temple'
+    github: 'https://github.com/anuj-yemple',
+    linkedin: 'https://linkedin.com/in/anuj-yemple'
   }
 ];
