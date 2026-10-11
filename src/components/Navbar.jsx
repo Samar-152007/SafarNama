@@ -11,7 +11,6 @@ export default function Navbar() {
     { name: 'Intelligence', path: '/dashboard' },
     { name: 'Route AI', path: '/route-ai' },
     { name: 'Report Incident', path: '/report' },
-    { name: 'Team', path: '/team' },
   ];
 
   const isActive = (path) => {

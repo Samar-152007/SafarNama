@@ -60,7 +60,6 @@ export default function Footer() {
               <li><Link to="/dashboard">Dashboard</Link></li>
               <li><Link to="/route-ai">Route Intelligence</Link></li>
               <li><Link to="/report">Incident Reporting</Link></li>
-              <li><Link to="/team">Team</Link></li>
             </ul>
           </div>
         </div>

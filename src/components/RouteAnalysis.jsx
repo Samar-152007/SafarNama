@@ -15,7 +15,10 @@ import {
   Sparkles,
   Layers,
   CloudRain,
-  Mountain
+  Mountain,
+  Calendar,
+  ShieldAlert,
+  History
 } from 'lucide-react';
 import { AI_ANALYSIS_STEPS } from '../services/routeService';
 
@@ -138,6 +141,99 @@ export default function RouteAnalysis({
           transition={{ duration: 0.6 }}
           className="analysis-results-section"
         >
+          {/* Live Telemetry & API Verification Strip */}
+          {routeData.telemetry && (
+            <div className="live-telemetry-banner">
+              <div className="telemetry-pill">
+                <span className="live-pulse-dot"></span>
+                <span className="telemetry-lbl">Routing:</span>
+                <span className="telemetry-val">{routeData.telemetry.source}</span>
+              </div>
+              {primaryRoute.elevationProfile && (
+                <div className="telemetry-pill">
+                  <Mountain size={14} className="text-teal" />
+                  <span className="telemetry-lbl">SRTM Peak Elevation:</span>
+                  <span className="telemetry-val">{primaryRoute.elevationProfile.maxElevationM} m ({primaryRoute.elevationProfile.avgGradientPct}% slope)</span>
+                </div>
+              )}
+              {routeData.telemetry.weather && (
+                <div className="telemetry-pill">
+                  <CloudRain size={14} className="text-gold" />
+                  <span className="telemetry-lbl">Live Sat. Soil Saturation:</span>
+                  <span className="telemetry-val">{routeData.telemetry.weather.soilMoisturePct}% ({routeData.telemetry.weather.condition})</span>
+                </div>
+              )}
+            </div>
+          )}
+
+          {/* Seasonal Historical Hazard Early Warning Section */}
+          {routeData.seasonalHazards?.interceptedHazards?.length > 0 && (
+            <div className="seasonal-hazard-card card">
+              <div className="seasonal-hazard-header">
+                <div className="seasonal-header-left">
+                  <ShieldAlert size={20} className="text-critical animate-pulse" />
+                  <div>
+                    <h4 className="seasonal-title">SEASONAL HISTORICAL HAZARD EARLY WARNING & RECURRENCE</h4>
+                    <p className="seasonal-subtitle">
+                      Cross-referencing active corridor against chronic disaster hot spots for <strong>{routeData.seasonalHazards.plannedMonthName} travel</strong>
+                    </p>
+                  </div>
+                </div>
+                <div className="seasonal-header-badge-group">
+                  <span className={`season-status-pill ${routeData.seasonalHazards.criticalBreachCount > 0 ? 'critical' : 'watch'}`}>
+                    {routeData.seasonalHazards.criticalBreachCount > 0
+                      ? `⚠️ ${routeData.seasonalHazards.criticalBreachCount} CRITICAL BREACHES`
+                      : `👁️ ${routeData.seasonalHazards.activeSeasonCount} SEASONAL WATCHES`}
+                  </span>
+                </div>
+              </div>
+
+              <div className="seasonal-hazards-list">
+                {routeData.seasonalHazards.interceptedHazards.map((hazard) => (
+                  <div key={hazard.id} className={`seasonal-item-card ${hazard.alertLevel.toLowerCase()}`}>
+                    <div className="seasonal-item-top">
+                      <div className="seasonal-item-title-block">
+                        <span className="hazard-type-badge">{hazard.type.replace('_', ' ')}</span>
+                        <strong className="hazard-zone-name">{hazard.name}</strong>
+                        <span className="hazard-highway">{hazard.highway}</span>
+                      </div>
+                      <div className="seasonal-item-recurrence">
+                        <span className="recurrence-tag">{hazard.recurrenceFrequency} RECURRENCE</span>
+                        <span className="historical-count">({hazard.historicalIncidentsCount} logged events)</span>
+                      </div>
+                    </div>
+
+                    <div className="trigger-thresholds-grid">
+                      <div className={`trigger-cell ${hazard.triggersStatus.rainBreached ? 'breached' : 'normal'}`}>
+                        <span className="cell-label">24h Rain Trigger</span>
+                        <span className="cell-val">{hazard.currentTelemetry.rainfallMm} mm / {hazard.triggers.minRainfall24hMm} mm</span>
+                        <span className="cell-status">{hazard.triggersStatus.rainBreached ? '⚠️ BREACHED' : '✓ Normal'}</span>
+                      </div>
+                      <div className={`trigger-cell ${hazard.triggersStatus.soilBreached ? 'breached' : 'normal'}`}>
+                        <span className="cell-label">Soil Saturation Trigger</span>
+                        <span className="cell-val">{hazard.currentTelemetry.soilMoisturePct}% / {hazard.triggers.minSoilMoisture}%</span>
+                        <span className="cell-status">{hazard.triggersStatus.soilBreached ? '⚠️ SATURATED' : '✓ Normal'}</span>
+                      </div>
+                      <div className={`trigger-cell ${hazard.triggersStatus.dischargeBreached ? 'breached' : 'normal'}`}>
+                        <span className="cell-label">River Discharge Trigger</span>
+                        <span className="cell-val">{hazard.currentTelemetry.dischargeM3s} m³/s / {hazard.triggers.riverDischargeThreshold} m³/s</span>
+                        <span className="cell-status">{hazard.triggersStatus.dischargeBreached ? '⚠️ HIGH STAGE' : '✓ Normal'}</span>
+                      </div>
+                    </div>
+
+                    <div className="seasonal-advisory-box">
+                      <strong>DRIVER ADVISORY:</strong> {hazard.advisory}
+                    </div>
+
+                    <div className="historical-precedent">
+                      <em>Historical Record:</em> {hazard.lastMajorEvent}
+                    </div>
+                  </div>
+                ))}
+              </div>
+            </div>
+          )}
+
           {/* Comparison Cards Grid */}
           <div className="comparison-grid">
             {/* Primary Route Card */}
@@ -773,6 +869,252 @@ export default function RouteAnalysis({
           padding: 0.25rem;
           color: #DC2626;
           font-size: 0.8rem;
+        }
+
+        .live-telemetry-banner {
+          display: flex;
+          flex-wrap: wrap;
+          gap: 0.75rem;
+          padding: 0.85rem 1.25rem;
+          background: #F0FDF4;
+          border: 1px solid #BBF7D0;
+          border-radius: var(--radius-lg);
+          margin-bottom: 1.25rem;
+          align-items: center;
+        }
+
+        .telemetry-pill {
+          display: flex;
+          align-items: center;
+          gap: 0.45rem;
+          font-size: 0.8rem;
+          color: #166534;
+        }
+
+        .telemetry-lbl {
+          font-weight: 500;
+          color: #15803D;
+        }
+
+        .telemetry-val {
+          font-weight: 700;
+          color: #14532D;
+        }
+
+        .live-pulse-dot {
+          width: 8px;
+          height: 8px;
+          border-radius: 50%;
+          background: #16A34A;
+          box-shadow: 0 0 0 0 rgba(22, 163, 74, 0.7);
+          animation: pulseGreen 2s infinite;
+        }
+
+        @keyframes pulseGreen {
+          0% {
+            transform: scale(0.95);
+            box-shadow: 0 0 0 0 rgba(22, 163, 74, 0.7);
+          }
+          70% {
+            transform: scale(1);
+            box-shadow: 0 0 0 6px rgba(22, 163, 74, 0);
+          }
+          100% {
+            transform: scale(0.95);
+            box-shadow: 0 0 0 0 rgba(22, 163, 74, 0);
+          }
+        }
+
+        /* Seasonal Historical Hazard Early Warning Box */
+        .seasonal-hazard-card {
+          margin-bottom: 1.5rem;
+          padding: 1.25rem 1.5rem;
+          background: #FEF2F2;
+          border: 1px solid #FECACA;
+          border-left: 5px solid #DC2626;
+          border-radius: var(--radius-lg);
+        }
+
+        .seasonal-hazard-header {
+          display: flex;
+          align-items: center;
+          justify-content: space-between;
+          flex-wrap: wrap;
+          gap: 0.75rem;
+          margin-bottom: 1rem;
+          padding-bottom: 0.75rem;
+          border-bottom: 1px solid #FEE2E2;
+        }
+
+        .seasonal-header-left {
+          display: flex;
+          align-items: center;
+          gap: 0.75rem;
+        }
+
+        .seasonal-title {
+          font-size: 0.92rem;
+          font-weight: 800;
+          letter-spacing: 0.04em;
+          color: #991B1B;
+          margin: 0;
+        }
+
+        .seasonal-subtitle {
+          font-size: 0.78rem;
+          color: #B91C1C;
+          margin: 0.2rem 0 0 0;
+        }
+
+        .season-status-pill {
+          font-size: 0.75rem;
+          font-weight: 700;
+          padding: 0.3rem 0.75rem;
+          border-radius: var(--radius-full);
+          letter-spacing: 0.05em;
+        }
+
+        .season-status-pill.critical {
+          background: #F87171;
+          color: #FFFFFF;
+        }
+
+        .season-status-pill.watch {
+          background: #FDE68A;
+          color: #92400E;
+        }
+
+        .seasonal-hazards-list {
+          display: flex;
+          flex-direction: column;
+          gap: 0.85rem;
+        }
+
+        .seasonal-item-card {
+          background: #FFFFFF;
+          border: 1px solid #FCA5A5;
+          border-radius: var(--radius-md);
+          padding: 0.9rem 1.1rem;
+          display: flex;
+          flex-direction: column;
+          gap: 0.65rem;
+        }
+
+        .seasonal-item-card.critical {
+          border-left: 4px solid #DC2626;
+        }
+
+        .seasonal-item-card.high {
+          border-left: 4px solid #F59E0B;
+        }
+
+        .seasonal-item-top {
+          display: flex;
+          align-items: center;
+          justify-content: space-between;
+          flex-wrap: wrap;
+          gap: 0.5rem;
+        }
+
+        .seasonal-item-title-block {
+          display: flex;
+          align-items: center;
+          gap: 0.5rem;
+          flex-wrap: wrap;
+        }
+
+        .hazard-type-badge {
+          font-size: 0.68rem;
+          font-weight: 700;
+          text-transform: uppercase;
+          background: #FEE2E2;
+          color: #991B1B;
+          padding: 0.2rem 0.5rem;
+          border-radius: 4px;
+        }
+
+        .hazard-zone-name {
+          font-size: 0.88rem;
+          color: #1F2937;
+        }
+
+        .hazard-highway {
+          font-size: 0.75rem;
+          color: #6B7280;
+        }
+
+        .seasonal-item-recurrence {
+          display: flex;
+          align-items: center;
+          gap: 0.4rem;
+          font-size: 0.75rem;
+        }
+
+        .recurrence-tag {
+          font-weight: 700;
+          color: #B91C1C;
+        }
+
+        .historical-count {
+          color: #6B7280;
+        }
+
+        .trigger-thresholds-grid {
+          display: grid;
+          grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+          gap: 0.5rem;
+        }
+
+        .trigger-cell {
+          padding: 0.5rem 0.75rem;
+          border-radius: 6px;
+          display: flex;
+          flex-direction: column;
+          gap: 0.15rem;
+          font-size: 0.74rem;
+        }
+
+        .trigger-cell.breached {
+          background: #FEF2F2;
+          border: 1px solid #FECACA;
+          color: #991B1B;
+        }
+
+        .trigger-cell.normal {
+          background: #F9FAFB;
+          border: 1px solid #E5E7EB;
+          color: #374151;
+        }
+
+        .cell-label {
+          font-size: 0.68rem;
+          text-transform: uppercase;
+          font-weight: 600;
+          color: #6B7280;
+        }
+
+        .cell-val {
+          font-weight: 700;
+        }
+
+        .cell-status {
+          font-size: 0.68rem;
+          font-weight: 700;
+        }
+
+        .seasonal-advisory-box {
+          font-size: 0.78rem;
+          color: #991B1B;
+          background: #FEF2F2;
+          padding: 0.5rem 0.75rem;
+          border-radius: 6px;
+          line-height: 1.4;
+        }
+
+        .historical-precedent {
+          font-size: 0.72rem;
+          color: #6B7280;
+          line-height: 1.35;
         }
       `}</style>
     </div>

@@ -1,0 +1,29 @@
+{
+  "model_type": "GradientBoostingRegressor",
+  "metrics": {
+    "mae_mins": 39.12,
+    "rmse_mins": 57.03,
+    "r2_score": 0.9802
+  },
+  "features": [
+    "distance_km",
+    "elevation_gain_m",
+    "avg_gradient_pct",
+    "monsoon_precip_mm_hr",
+    "checkpoint_delay_mins",
+    "cargo_payload_tons",
+    "is_night_transit",
+    "hairpin_density"
+  ],
+  "feature_importances": {
+    "elevation_gain_m": 0.7720207756019901,
+    "distance_km": 0.1387821698639956,
+    "avg_gradient_pct": 0.02262837443187447,
+    "monsoon_precip_mm_hr": 0.01873463789741399,
+    "cargo_payload_tons": 0.017617737954227244,
+    "hairpin_density": 0.017345063238889357,
+    "is_night_transit": 0.010236319829122813,
+    "checkpoint_delay_mins": 0.0026349211824864363
+  },
+  "trained_samples": 4000
+}

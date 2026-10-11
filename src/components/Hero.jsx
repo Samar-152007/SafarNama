@@ -99,8 +99,8 @@ export default function Hero() {
               <span>Explore Intelligence</span>
               <ArrowRight size={18} />
             </Link>
-            <Link to="/team" className="btn btn-secondary btn-lg">
-              <span>Meet Our Team</span>
+            <Link to="/route-ai" className="btn btn-secondary btn-lg">
+              <span>AI Route Planner</span>
               <ArrowRight size={18} />
             </Link>
           </motion.div>

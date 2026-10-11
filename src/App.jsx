@@ -6,7 +6,6 @@ import Home from './pages/Home';
 import Dashboard from './pages/Dashboard';
 import RouteAI from './pages/RouteAI';
 import IncidentReport from './pages/IncidentReport';
-import Team from './pages/Team';
 
 // Scrolls to top whenever route changes
 function ScrollToTop() {
@@ -29,7 +28,6 @@ export default function App() {
             <Route path="/dashboard" element={<Dashboard />} />
             <Route path="/route-ai" element={<RouteAI />} />
             <Route path="/report" element={<IncidentReport />} />
-            <Route path="/team" element={<Team />} />
             <Route path="*" element={<Home />} />
           </Routes>
         </main>

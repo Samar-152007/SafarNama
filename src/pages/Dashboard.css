@@ -1,0 +1,840 @@
+/* ==========================================================================
+   SAFARNAMA OPERATIONAL DASHBOARD - PURE VANILLA CSS
+   Design System: Warm Ivory, Forest Deep Teal, Muted Gold, High-Vis Alarms
+   Strictly NO Tailwind, NO Styled-Components
+   ========================================================================== */
+
+.dashboard-root {
+  min-height: 100vh;
+  padding: 1.5rem 2rem 4rem 2rem;
+  background-color: var(--color-ivory);
+  color: var(--color-charcoal);
+  font-family: var(--font-sans);
+}
+
+/* --------------------------------------------------------------------------
+   1. TOP NAVIGATION & CONTROL BAR
+   -------------------------------------------------------------------------- */
+.dashboard-topbar {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  background: var(--color-white);
+  border: 1px solid var(--color-border);
+  border-radius: var(--radius-lg);
+  padding: 0.85rem 1.5rem;
+  margin-bottom: 1.5rem;
+  box-shadow: var(--shadow-sm);
+  gap: 1.5rem;
+  flex-wrap: wrap;
+}
+
+.topbar-brand {
+  display: flex;
+  align-items: center;
+  gap: 0.75rem;
+}
+
+.topbar-brand-icon {
+  width: 40px;
+  height: 40px;
+  border-radius: var(--radius-md);
+  background: linear-gradient(135deg, var(--color-teal), var(--color-teal-light));
+  color: #ffffff;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  box-shadow: var(--shadow-teal);
+}
+
+.topbar-title {
+  font-size: 1.15rem;
+  font-weight: 700;
+  color: var(--color-teal);
+  margin: 0;
+  line-height: 1.2;
+}
+
+.topbar-subtitle {
+  font-size: 0.78rem;
+  color: var(--color-charcoal-muted);
+  margin: 0;
+  text-transform: uppercase;
+  letter-spacing: 0.04em;
+}
+
+/* Role Selector & Badges */
+.topbar-controls {
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+}
+
+.role-badge-group {
+  display: flex;
+  align-items: center;
+  background: var(--color-ivory);
+  border: 1px solid var(--color-border);
+  border-radius: var(--radius-full);
+  padding: 0.25rem 0.4rem;
+  gap: 0.25rem;
+}
+
+.role-btn {
+  border: none;
+  background: transparent;
+  padding: 0.35rem 0.85rem;
+  border-radius: var(--radius-full);
+  font-size: 0.78rem;
+  font-weight: 600;
+  color: var(--color-charcoal-muted);
+  cursor: pointer;
+  transition: var(--transition-fast);
+}
+
+.role-btn:hover {
+  color: var(--color-teal);
+}
+
+.role-btn.active {
+  background: var(--color-teal);
+  color: #ffffff;
+  box-shadow: var(--shadow-sm);
+}
+
+.connection-pill {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.45rem;
+  font-size: 0.78rem;
+  font-weight: 600;
+  padding: 0.35rem 0.85rem;
+  border-radius: var(--radius-full);
+  background: rgba(15, 76, 76, 0.08);
+  color: var(--color-teal);
+}
+
+.connection-pill.live .status-dot {
+  background: #10b981;
+  box-shadow: 0 0 8px #10b981;
+}
+
+.connection-pill.simulated .status-dot {
+  background: var(--color-gold);
+}
+
+.status-dot {
+  width: 8px;
+  height: 8px;
+  border-radius: 50%;
+  display: inline-block;
+  animation: pulse-dot 2s infinite;
+}
+
+@keyframes pulse-dot {
+  0% { transform: scale(0.95); opacity: 0.8; }
+  50% { transform: scale(1.2); opacity: 1; }
+  100% { transform: scale(0.95); opacity: 0.8; }
+}
+
+/* --------------------------------------------------------------------------
+   SYSTEM ALERTS TICKER
+   -------------------------------------------------------------------------- */
+.alerts-ticker-strip {
+  display: flex;
+  align-items: center;
+  background: #182525;
+  color: #f7f4ec;
+  border-radius: var(--radius-md);
+  padding: 0.55rem 1.25rem;
+  margin-bottom: 1.5rem;
+  gap: 1rem;
+  overflow: hidden;
+  box-shadow: var(--shadow-sm);
+}
+
+.ticker-label {
+  display: flex;
+  align-items: center;
+  gap: 0.4rem;
+  font-size: 0.75rem;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+  color: #f87171;
+  white-space: nowrap;
+  background: rgba(220, 38, 38, 0.2);
+  padding: 0.2rem 0.6rem;
+  border-radius: 4px;
+}
+
+.ticker-content {
+  flex: 1;
+  overflow: hidden;
+  white-space: nowrap;
+  position: relative;
+}
+
+.ticker-text {
+  display: inline-block;
+  font-size: 0.85rem;
+  animation: ticker-scroll 32s linear infinite;
+}
+
+@keyframes ticker-scroll {
+  0% { transform: translateX(100%); }
+  100% { transform: translateX(-100%); }
+}
+
+/* --------------------------------------------------------------------------
+   KPI METRICS STRIP
+   -------------------------------------------------------------------------- */
+.kpi-grid {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 1rem;
+  margin-bottom: 1.5rem;
+}
+
+.kpi-card {
+  background: var(--color-white);
+  border: 1px solid var(--color-border);
+  border-radius: var(--radius-md);
+  padding: 1.15rem 1.25rem;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  box-shadow: var(--shadow-sm);
+  transition: var(--transition-fast);
+}
+
+.kpi-card:hover {
+  transform: translateY(-2px);
+  box-shadow: var(--shadow-md);
+}
+
+.kpi-info h4 {
+  font-size: 0.78rem;
+  color: var(--color-charcoal-muted);
+  text-transform: uppercase;
+  letter-spacing: 0.03em;
+  margin: 0 0 0.35rem 0;
+}
+
+.kpi-val {
+  font-size: 1.65rem;
+  font-weight: 700;
+  color: var(--color-teal);
+  line-height: 1;
+  margin-bottom: 0.3rem;
+}
+
+.kpi-meta {
+  font-size: 0.75rem;
+  color: var(--color-charcoal-light);
+}
+
+.kpi-icon-wrap {
+  width: 44px;
+  height: 44px;
+  border-radius: 12px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.kpi-icon-teal { background: rgba(15, 76, 76, 0.1); color: var(--color-teal); }
+.kpi-icon-gold { background: rgba(198, 161, 91, 0.15); color: #b45309; }
+.kpi-icon-red  { background: rgba(220, 38, 38, 0.1); color: var(--status-critical); }
+.kpi-icon-sage { background: rgba(111, 143, 114, 0.15); color: var(--color-sage); }
+
+/* --------------------------------------------------------------------------
+   MAIN 3-COLUMN OPERATIONAL GRID
+   -------------------------------------------------------------------------- */
+.dashboard-grid-3 {
+  display: grid;
+  grid-template-columns: 340px 1fr 340px;
+  gap: 1.5rem;
+  align-items: start;
+}
+
+/* Panel Containers */
+.dash-panel {
+  background: var(--color-white);
+  border: 1px solid var(--color-border);
+  border-radius: var(--radius-lg);
+  padding: 1.35rem;
+  box-shadow: var(--shadow-sm);
+  display: flex;
+  flex-direction: column;
+  gap: 1.15rem;
+}
+
+.panel-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  border-bottom: 1px solid var(--color-border-subtle);
+  padding-bottom: 0.85rem;
+}
+
+.panel-title {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  font-size: 0.95rem;
+  font-weight: 700;
+  color: var(--color-teal);
+  margin: 0;
+}
+
+.panel-action-link {
+  font-size: 0.78rem;
+  color: var(--color-gold);
+  text-decoration: none;
+  font-weight: 600;
+  cursor: pointer;
+}
+
+/* --------------------------------------------------------------------------
+   COLUMN 1: LIVE VEHICLE TELEMETRY PANEL
+   -------------------------------------------------------------------------- */
+.vehicle-selector-strip {
+  display: flex;
+  gap: 0.4rem;
+  overflow-x: auto;
+  padding-bottom: 0.4rem;
+}
+
+.vehicle-tab {
+  background: var(--color-ivory);
+  border: 1px solid var(--color-border);
+  border-radius: var(--radius-sm);
+  padding: 0.4rem 0.75rem;
+  font-size: 0.75rem;
+  font-weight: 600;
+  cursor: pointer;
+  white-space: nowrap;
+  color: var(--color-charcoal-muted);
+  transition: var(--transition-fast);
+}
+
+.vehicle-tab.active {
+  background: var(--color-teal);
+  color: #ffffff;
+  border-color: var(--color-teal);
+}
+
+.vehicle-hero-card {
+  background: linear-gradient(145deg, #182525, #0f4c4c);
+  color: #ffffff;
+  border-radius: var(--radius-md);
+  padding: 1.15rem;
+  box-shadow: var(--shadow-md);
+}
+
+.vehicle-hero-top {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-start;
+  margin-bottom: 0.75rem;
+}
+
+.v-reg {
+  font-size: 1.1rem;
+  font-weight: 700;
+  letter-spacing: 0.02em;
+}
+
+.v-model {
+  font-size: 0.75rem;
+  color: #cbd5e1;
+}
+
+.v-status-badge {
+  font-size: 0.68rem;
+  font-weight: 700;
+  padding: 0.2rem 0.5rem;
+  border-radius: var(--radius-full);
+  text-transform: uppercase;
+}
+
+.v-status-badge.en_route { background: rgba(16, 185, 129, 0.25); color: #34d399; }
+.v-status-badge.available { background: rgba(198, 161, 91, 0.25); color: #fbbf24; }
+
+.v-driver-meta {
+  display: flex;
+  align-items: center;
+  gap: 0.4rem;
+  font-size: 0.78rem;
+  color: #94a3b8;
+  margin-bottom: 0.85rem;
+}
+
+/* Telemetry Dials & Metrics */
+.telemetry-metrics-grid {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 0.75rem;
+}
+
+.t-metric-box {
+  background: rgba(255, 255, 255, 0.07);
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  border-radius: var(--radius-sm);
+  padding: 0.65rem 0.85rem;
+}
+
+.t-metric-lbl {
+  font-size: 0.68rem;
+  color: #94a3b8;
+  text-transform: uppercase;
+  margin-bottom: 0.2rem;
+}
+
+.t-metric-val {
+  font-size: 1.15rem;
+  font-weight: 700;
+  color: #ffffff;
+}
+
+.t-metric-val span {
+  font-size: 0.72rem;
+  font-weight: 400;
+  color: #cbd5e1;
+  margin-left: 0.2rem;
+}
+
+/* Fuel & Battery Progress Bars */
+.bar-track {
+  width: 100%;
+  height: 6px;
+  background: rgba(255, 255, 255, 0.15);
+  border-radius: 999px;
+  margin-top: 0.4rem;
+  overflow: hidden;
+}
+
+.bar-fill {
+  height: 100%;
+  border-radius: 999px;
+  transition: width 0.4s ease;
+}
+
+.bar-fill.fuel { background: linear-gradient(90deg, #f59e0b, #10b981); }
+.bar-fill.battery { background: #38bdf8; }
+
+/* Dead-zone sync simulation button */
+.btn-deadzone-sync {
+  width: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.5rem;
+  background: var(--color-ivory);
+  border: 1px dashed var(--color-teal);
+  color: var(--color-teal);
+  padding: 0.65rem;
+  border-radius: var(--radius-sm);
+  font-size: 0.78rem;
+  font-weight: 600;
+  cursor: pointer;
+  transition: var(--transition-fast);
+}
+
+.btn-deadzone-sync:hover {
+  background: rgba(15, 76, 76, 0.06);
+}
+
+/* --------------------------------------------------------------------------
+   COLUMN 2: INTERACTIVE DASHCAM INCIDENT MONITOR
+   -------------------------------------------------------------------------- */
+.incident-feed-container {
+  display: flex;
+  flex-direction: column;
+  gap: 0.85rem;
+  max-height: 640px;
+  overflow-y: auto;
+  padding-right: 0.35rem;
+}
+
+.incident-card {
+  border: 1px solid var(--color-border);
+  border-radius: var(--radius-md);
+  padding: 1rem;
+  background: var(--color-white);
+  transition: var(--transition-fast);
+  display: flex;
+  flex-direction: column;
+  gap: 0.6rem;
+  cursor: pointer;
+}
+
+.incident-card:hover {
+  border-color: var(--color-gold);
+  box-shadow: var(--shadow-sm);
+}
+
+.incident-card-top {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+/* Severity Badges (P1 to P4) */
+.severity-badge {
+  font-size: 0.7rem;
+  font-weight: 800;
+  padding: 0.22rem 0.65rem;
+  border-radius: var(--radius-full);
+  letter-spacing: 0.04em;
+}
+
+.severity-badge.p1 {
+  background: #fef2f2;
+  color: #b91c1c;
+  border: 1px solid #f87171;
+  box-shadow: 0 0 10px rgba(220, 38, 38, 0.2);
+}
+
+.severity-badge.p2 {
+  background: #fffbeb;
+  color: #b45309;
+  border: 1px solid #fcd34d;
+}
+
+.severity-badge.p3 {
+  background: #f0fdf4;
+  color: #15803d;
+  border: 1px solid #86efac;
+}
+
+.severity-badge.p4 {
+  background: #f8fafc;
+  color: #475569;
+  border: 1px solid #cbd5e1;
+}
+
+.incident-time {
+  font-size: 0.72rem;
+  color: var(--color-charcoal-light);
+  display: flex;
+  align-items: center;
+  gap: 0.3rem;
+}
+
+.incident-title {
+  font-size: 0.92rem;
+  font-weight: 700;
+  color: var(--color-charcoal);
+  margin: 0;
+  line-height: 1.3;
+}
+
+.incident-meta {
+  display: flex;
+  align-items: center;
+  gap: 0.85rem;
+  font-size: 0.75rem;
+  color: var(--color-charcoal-muted);
+}
+
+.incident-ai-meter {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  background: var(--color-ivory);
+  padding: 0.45rem 0.75rem;
+  border-radius: var(--radius-sm);
+  font-size: 0.72rem;
+}
+
+.btn-preview-clip {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.35rem;
+  border: none;
+  background: var(--color-teal);
+  color: #ffffff;
+  padding: 0.35rem 0.75rem;
+  border-radius: var(--radius-sm);
+  font-size: 0.72rem;
+  font-weight: 600;
+  cursor: pointer;
+  align-self: flex-start;
+  transition: var(--transition-fast);
+}
+
+.btn-preview-clip:hover {
+  background: var(--color-teal-light);
+}
+
+/* --------------------------------------------------------------------------
+   COLUMN 3: DELIVERY ROUTE TIMELINE & STATUS SWITCHER
+   -------------------------------------------------------------------------- */
+.consignment-card {
+  background: var(--color-ivory-light);
+  border: 1px solid var(--color-border);
+  border-radius: var(--radius-md);
+  padding: 1rem;
+}
+
+.consignment-code {
+  font-size: 1rem;
+  font-weight: 700;
+  color: var(--color-teal);
+  margin: 0 0 0.25rem 0;
+}
+
+.consignment-cargo {
+  font-size: 0.78rem;
+  color: var(--color-charcoal-muted);
+  margin-bottom: 0.75rem;
+}
+
+/* Interactive Status Switcher */
+.status-switcher-block {
+  display: flex;
+  flex-direction: column;
+  gap: 0.4rem;
+  margin-bottom: 1rem;
+}
+
+.switcher-label {
+  font-size: 0.72rem;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.04em;
+  color: var(--color-charcoal-light);
+}
+
+.status-button-row {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 0.35rem;
+}
+
+.status-opt-btn {
+  border: 1px solid var(--color-border);
+  background: var(--color-white);
+  padding: 0.4rem;
+  font-size: 0.72rem;
+  font-weight: 600;
+  border-radius: var(--radius-sm);
+  cursor: pointer;
+  transition: var(--transition-fast);
+  text-align: center;
+}
+
+.status-opt-btn:hover {
+  background: var(--color-ivory-dark);
+}
+
+.status-opt-btn.current {
+  background: var(--color-teal);
+  color: #ffffff;
+  border-color: var(--color-teal);
+}
+
+.status-opt-btn.danger {
+  color: var(--status-critical);
+}
+
+/* Multi-stop Timeline */
+.timeline-list {
+  display: flex;
+  flex-direction: column;
+  position: relative;
+  margin-top: 0.5rem;
+}
+
+.timeline-list::before {
+  content: '';
+  position: absolute;
+  left: 11px;
+  top: 8px;
+  bottom: 8px;
+  width: 2px;
+  background: var(--color-border);
+}
+
+.timeline-item {
+  display: flex;
+  align-items: flex-start;
+  gap: 0.75rem;
+  position: relative;
+  padding-bottom: 1rem;
+}
+
+.timeline-dot {
+  width: 24px;
+  height: 24px;
+  border-radius: 50%;
+  background: var(--color-white);
+  border: 2px solid var(--color-border);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 1;
+  font-size: 0.65rem;
+  font-weight: 700;
+}
+
+.timeline-item.reached .timeline-dot {
+  border-color: #10b981;
+  background: #ecfdf5;
+  color: #10b981;
+}
+
+.timeline-item.active .timeline-dot {
+  border-color: var(--color-gold);
+  background: #fffbeb;
+  color: #b45309;
+}
+
+.timeline-text h5 {
+  font-size: 0.82rem;
+  margin: 0 0 0.15rem 0;
+  color: var(--color-charcoal);
+}
+
+.timeline-text span {
+  font-size: 0.72rem;
+  color: var(--color-charcoal-light);
+}
+
+/* Dynamic Recalculate Button */
+.btn-recalculate-aco {
+  width: 100%;
+  background: linear-gradient(135deg, var(--color-gold), #b45309);
+  color: #ffffff;
+  border: none;
+  padding: 0.65rem;
+  border-radius: var(--radius-sm);
+  font-size: 0.8rem;
+  font-weight: 700;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.5rem;
+  cursor: pointer;
+  box-shadow: var(--shadow-gold);
+  transition: var(--transition-fast);
+}
+
+.btn-recalculate-aco:hover {
+  opacity: 0.95;
+  transform: translateY(-1px);
+}
+
+/* --------------------------------------------------------------------------
+   DASHCAM VIDEO MODAL PREVIEW
+   -------------------------------------------------------------------------- */
+.modal-overlay {
+  position: fixed;
+  inset: 0;
+  background: rgba(24, 37, 37, 0.75);
+  backdrop-filter: blur(4px);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 9999;
+  padding: 1rem;
+}
+
+.modal-dialog {
+  background: var(--color-white);
+  border-radius: var(--radius-lg);
+  max-width: 580px;
+  width: 100%;
+  overflow: hidden;
+  box-shadow: var(--shadow-lg);
+  border: 1px solid var(--color-border);
+}
+
+.modal-head {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 1rem 1.25rem;
+  border-bottom: 1px solid var(--color-border-subtle);
+}
+
+.modal-head h3 {
+  font-size: 1rem;
+  margin: 0;
+  color: var(--color-teal);
+}
+
+.modal-close-btn {
+  background: transparent;
+  border: none;
+  cursor: pointer;
+  color: var(--color-charcoal-muted);
+}
+
+.modal-body {
+  padding: 1.25rem;
+  display: flex;
+  flex-direction: column;
+  gap: 0.85rem;
+}
+
+.video-frame-container {
+  width: 100%;
+  height: 280px;
+  background: #000000;
+  border-radius: var(--radius-md);
+  overflow: hidden;
+  position: relative;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.video-placeholder-hud {
+  text-align: center;
+  color: #ffffff;
+  padding: 1rem;
+}
+
+.hud-tag {
+  font-size: 0.75rem;
+  color: #38bdf8;
+  font-family: var(--font-mono);
+  margin-top: 0.4rem;
+}
+
+/* --------------------------------------------------------------------------
+   RESPONSIVE DESIGN BREAKPOINTS
+   -------------------------------------------------------------------------- */
+@media (max-width: 1200px) {
+  .dashboard-grid-3 {
+    grid-template-columns: 1fr 1fr;
+  }
+  .dash-panel:last-child {
+    grid-column: span 2;
+  }
+  .kpi-grid {
+    grid-template-columns: repeat(2, 1fr);
+  }
+}
+
+@media (max-width: 768px) {
+  .dashboard-root {
+    padding: 1rem;
+  }
+  .dashboard-grid-3 {
+    grid-template-columns: 1fr;
+  }
+  .dash-panel:last-child {
+    grid-column: span 1;
+  }
+  .kpi-grid {
+    grid-template-columns: 1fr;
+  }
+  .topbar-controls {
+    width: 100%;
+    justify-content: space-between;
+  }
+}

@@ -2,13 +2,14 @@ import React, { useState } from 'react';
 import RouteAnalysis from '../components/RouteAnalysis';
 import { calculateRouteAnalysis, getAvailableHubs, AI_ANALYSIS_STEPS } from '../services/routeService';
 import { demoRoutesData } from '../data/demoRoutes';
-import { Navigation, ArrowRight, Sparkles, MapPin, RefreshCw, Cpu, Layers } from 'lucide-react';
+import { Navigation, ArrowRight, Sparkles, MapPin, RefreshCw, Cpu, Layers, Calendar } from 'lucide-react';
 import { motion } from 'framer-motion';
 
 export default function RouteAI() {
   const hubs = getAvailableHubs();
   const [fromHub, setFromHub] = useState('Guwahati');
   const [toHub, setToHub] = useState('Tawang');
+  const [travelMonth, setTravelMonth] = useState(7); // Default to July (Peak Monsoon) to demonstrate predictive AI
 
   // Route calculation state
   const [isAnalyzing, setIsAnalyzing] = useState(false);
@@ -21,14 +22,18 @@ export default function RouteAI() {
     setAnalysisComplete(false);
     setAnalysisStep(0);
 
+    const plannedDate = new Date(2026, travelMonth - 1, 15);
+    // Start live API routing, DEM elevation & seasonal hazard analysis immediately
+    const apiPromise = calculateRouteAnalysis(fromHub, toHub, plannedDate);
+
     // Step-by-step sequential animation with Framer Motion
     for (let i = 0; i < AI_ANALYSIS_STEPS.length; i++) {
       setAnalysisStep(i);
-      await new Promise((resolve) => setTimeout(resolve, 850));
+      await new Promise((resolve) => setTimeout(resolve, 650));
     }
 
-    // Fetch computed route data
-    const res = await calculateRouteAnalysis(fromHub, toHub);
+    // Await computed route data from live APIs
+    const res = await apiPromise;
     setRouteData(res);
     setIsAnalyzing(false);
     setAnalysisComplete(true);
@@ -108,6 +113,27 @@ export default function RouteAI() {
               </select>
             </div>
 
+            {/* Travel Season Simulator Input */}
+            <div className="input-group">
+              <label className="input-label">
+                <Calendar size={14} className="text-teal" />
+                <span>Travel Season</span>
+              </label>
+              <select
+                value={travelMonth}
+                onChange={(e) => setTravelMonth(Number(e.target.value))}
+                className="hub-select font-serif"
+                disabled={isAnalyzing}
+              >
+                <option value={7}>July (Monsoon Peak - Max Landslides)</option>
+                <option value={8}>August (Heavy Rain & River Floods)</option>
+                <option value={9}>September (Late Monsoon / Current)</option>
+                <option value={10}>October (Autumn Post-Monsoon)</option>
+                <option value={1}>January (Dry Winter Baseline)</option>
+                <option value={5}>May (Pre-Monsoon Squalls)</option>
+              </select>
+            </div>
+
             {/* Analyze Route Button */}
             <div className="query-action-wrap">
               <button
@@ -137,13 +163,31 @@ export default function RouteAI() {
               className={`preset-btn ${fromHub === 'Guwahati' && toHub === 'Tawang' ? 'active' : ''}`}
               onClick={() => { setFromHub('Guwahati'); setToHub('Tawang'); }}
             >
-              Guwahati ⇄ Tawang (Default Demo)
+              Guwahati ⇄ Tawang (NH-13)
+            </button>
+            <button
+              className={`preset-btn ${fromHub === 'Guwahati' && toHub === 'Shillong' ? 'active' : ''}`}
+              onClick={() => { setFromHub('Guwahati'); setToHub('Shillong'); }}
+            >
+              Guwahati ⇄ Shillong (NH-06)
+            </button>
+            <button
+              className={`preset-btn ${fromHub === 'Shillong' && toHub === 'Silchar' ? 'active' : ''}`}
+              onClick={() => { setFromHub('Shillong'); setToHub('Silchar'); }}
+            >
+              Shillong ⇄ Silchar (Sonapur)
             </button>
             <button
               className={`preset-btn ${fromHub === 'Silchar' && toHub === 'Imphal' ? 'active' : ''}`}
               onClick={() => { setFromHub('Silchar'); setToHub('Imphal'); }}
             >
               Silchar ⇄ Imphal (NH-37)
+            </button>
+            <button
+              className={`preset-btn ${fromHub === 'Kohima' && toHub === 'Imphal' ? 'active' : ''}`}
+              onClick={() => { setFromHub('Kohima'); setToHub('Imphal'); }}
+            >
+              Kohima ⇄ Imphal (NH-02)
             </button>
           </div>
         </div>
